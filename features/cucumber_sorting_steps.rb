@@ -1,16 +1,10 @@
 Given(/^a list of ints$/) do
-  @list = []
-  prng = Random.new
-  100.times { |i| @list[i] = (prng.rand*100+1).to_i }
-  puts @list
+  @list = 100.times.map { |i| (Random.new.rand*100+1).to_i }
 end
 
 When(/^I sort the list "(.*?)" to "(.*?)"$/) do |lo, hi|
-  if lo == 'start' && hi == 'end'
-    lo, hi = 0, @list.size-1
-  else
-    lo, hi = lo.to_i, hi.to_i
-  end
+  hi = (lo == 'start' && hi == 'end') ? @list.size-1 : hi.to_i
+  lo = lo.to_i
   if lo < hi
     pivot = @list[lo]
     p = lo
