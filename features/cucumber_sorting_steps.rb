@@ -1,26 +1,20 @@
 Given(/^a list of ints$/) do
-  @list = 100.times.map { |i| (Random.new.rand*100+1).to_i }
+  @l = 100.times.map { |i| (Random.new.rand*100+1).to_i }
 end
 
-When(/^I sort the list "(.*?)" to "(.*?)"$/) do |lo, hi|
-  hi = (lo == 'start' && hi == 'end') ? @list.size-1 : hi.to_i
-  lo = lo.to_i
-  if lo < hi
-    pivot = @list[lo]
-    p = lo
-    (lo+1..hi).each do |i|
-      if @list[i] < pivot
-        p += 1
-        @list[i], @list[p] = @list[p], @list[i]
-      end
-    end
-    @list[p], @list[lo] = @list[lo], @list[p]
-    step %Q(I sort the list "#{lo}" to "#{p-1}")
-    step %Q(I sort the list "#{p+1}" to "#{hi}")
+When(/^I sort the list "(.*?)" to "(.*?)"$/) do |x, y|
+  y = (x == 'start' && y == 'end') ? @l.size-1 : y.to_i
+  x = x.to_i
+  if x < y
+    z, p = @l[x], x
+    (x+1..y).each { |i| p, @l[i], @l[p] = p+1, @l[p+1], @l[i] if @l[i] < z }
+    @l[p], @l[x] = @l[x], @l[p]
+    step %Q(I sort the list "#{x}" to "#{p-1}")
+    step %Q(I sort the list "#{p+1}" to "#{y}")
   end
 end
 
 Then(/^the list is sorted$/) do
-  expect(@list).to eq(@list.sort)
-  puts @list
+  expect(@l).to eq(@l.sort)
+  puts @l
 end
