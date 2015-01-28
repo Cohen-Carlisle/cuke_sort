@@ -30,3 +30,7 @@ Then(/^the list is sorted$/) do
   expect(@list).to eq(@list.sort)
   puts @list
 end
+
+And(/^I do the sort by "(.*?)"$/) do |step_call|
+  step step_call
+end
