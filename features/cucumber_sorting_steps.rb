@@ -31,6 +31,8 @@ Then(/^the list is sorted$/) do
   puts @list
 end
 
-And(/^I do the sort by "(.*?)"$/) do |step_call|
-  step step_call
+And(/^I do the sort by stepcalls within stepcalls$/) do |table|
+  table.raw.each do |stepcall|
+    step stepcall[0]
+  end
 end
