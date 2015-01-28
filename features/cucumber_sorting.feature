@@ -5,11 +5,8 @@ Feature: Cucumber Sorting
     When I sort the list "start" to "end"
     Then the list is sorted
   
-  Scenario Outline: Sort by Stepception
-    And I do the sort by "<step>"
-  
-  Examples:
-    | step |
+  Scenario: Sort by Stepception
+    And I do the sort by stepcalls within stepcalls
     | a list of ints |
     | I sort the list "start" to "end" |
     | the list is sorted |
