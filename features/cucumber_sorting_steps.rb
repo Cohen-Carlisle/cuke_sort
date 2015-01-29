@@ -24,3 +24,9 @@ Then(/^the list is sorted$/) do
   expect(@list).to eq(@list.sort)
   puts @list
 end
+
+And(/^I do the sort by stepcalls within stepcalls$/) do |table|
+  table.raw.each do |stepcall|
+    step stepcall[0]
+  end
+end
