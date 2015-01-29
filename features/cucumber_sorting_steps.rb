@@ -1,5 +1,5 @@
 Given(/^a list of ints$/) do
-  @list = 100.times.map { |i| (Random.new.rand*100+1).to_i }
+  puts @list = 100.times.map { |i| (Random.new.rand*100+1).to_i }
 end
 
 When(/^I sort the list "(.*?)" to "(.*?)"$/) do |lo, hi|
