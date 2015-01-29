@@ -6,7 +6,7 @@ Feature: Cucumber Sorting
     Then the list is sorted
   
   Scenario: Sort by Stepception
-    And I do the sort by stepcalls within stepcalls
-    | a list of ints |
+    * I do the sort by stepcalls within stepcalls
+    | a list of ints                   |
     | I sort the list "start" to "end" |
-    | the list is sorted |
+    | the list is sorted               |

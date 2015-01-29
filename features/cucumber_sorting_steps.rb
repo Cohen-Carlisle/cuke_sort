@@ -1,22 +1,21 @@
 Given(/^a list of ints$/) do
-  puts @l = 100.times.map { |i| (Random.new.rand*100+1).to_i }
+  puts @a = 100.times.map { (Random.new.rand*100+1).to_i }
 end
 
-When(/^I sort the list "(.*?)" to "(.*?)"$/) do |x, y|
-  y = (x == 'start' && y == 'end') ? @l.size-1 : y.to_i
-  x = x.to_i
-  if x < y
-    z, p = @l[x], x
-    (x+1..y).each { |i| p, @l[i], @l[p] = p+1, @l[p+1], @l[i] if @l[i] < z }
-    @l[p], @l[x] = @l[x], @l[p]
-    step %Q(I sort the list "#{x}" to "#{p-1}")
-    step %Q(I sort the list "#{p+1}" to "#{y}")
+When(/^I sort the list "(.*?)" to "(.*?)"$/) do |l, h|
+  h,l = h == 'end' ? @a.size-1 : h.to_i, l.to_i
+  if l < h
+    pivot, p = @a[l], l
+    (l+1..h).each { |i| p, @a[i], @a[p] = p+1, @a[p+1], @a[i] if @a[i] < pivot } # WTF
+    @a[p], @a[l] = @a[l], @a[p]
+    step %Q(I sort the list "#{l}" to "#{p-1}")
+    step %Q(I sort the list "#{p+1}" to "#{h}")
   end
 end
 
 Then(/^the list is sorted$/) do
-  expect(@l).to eq(@l.sort)
-  puts @l
+  expect(@a).to eq(@a.sort)
+  puts @a
 end
 
 And(/^I do the sort by stepcalls within stepcalls$/) do |table|
